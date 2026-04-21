@@ -1,0 +1,42 @@
+# Local 4-node cluster address book.
+# All nodes run on 127.0.0.1 with different cluster ports.
+
+# key_0.pem — Node 1 (cluster port 19793)
+[[addresses]]
+key = """
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnnf3kpf1JJ4ypYfOCajttq/K/LR1
+WlusJ7yZyT9eM9iSjtYfz5qx7DB2jpQOfbUgGI5AYHLLFbhdAUZNh9kayQ==
+-----END PUBLIC KEY-----
+"""
+addr = "127.0.0.1:19793"
+
+# key_1.pem — Node 2 (cluster port 19794)
+[[addresses]]
+key = """
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9menwylnYjxmveG6FSEY76OeSKwt
+AoCZVb3Mrwe95SF86tm8WH3joe3+y1pNAVV006Osmn3Sl5/OaES/sof9ww==
+-----END PUBLIC KEY-----
+"""
+addr = "127.0.0.1:19794"
+
+# key_2.pem — Node 3 (cluster port 19795)
+[[addresses]]
+key = """
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyNJugPLyF3c4akZyxiOMTcdBX1wJ
+DbVWaWaEybkjv/+hjfrg+aw5Z6M6i/LqSzRmRV/zzrhUxiftPtyV4uyJAA==
+-----END PUBLIC KEY-----
+"""
+addr = "127.0.0.1:19795"
+
+# key_3.pem — Node 4 (cluster port 19796)
+[[addresses]]
+key = """
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEOMEQMpHG1Unnisi/YWx3V17/Faqn
+bo6XEnUtocyE5Mi/6tEoWsjASXnsncaWhMe3TIp6aWxTmxpjne5nyRxTXw==
+-----END PUBLIC KEY-----
+"""
+addr = "127.0.0.1:19796"

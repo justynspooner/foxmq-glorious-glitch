@@ -1,0 +1,7 @@
+node_modules/
+bin/
+logs/
+
+# Large demo video — attached to GitHub Release instead
+GloriousGlitchTashi.mp4
+.DS_Store

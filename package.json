@@ -1,0 +1,14 @@
+{
+  "name": "foxmq-ordering-bug-demo",
+  "private": true,
+  "type": "module",
+  "description": "Demonstrates the FoxMQ message ordering bug fixed in tashigit/foxmq#65",
+  "scripts": {
+    "demo": "./run-demo.sh",
+    "start-cluster": "./run-demo.sh --cluster-only",
+    "test": "node ordering-bug-demo.js"
+  },
+  "dependencies": {
+    "mqtt": "^5.3.5"
+  }
+}
