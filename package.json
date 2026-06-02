@@ -6,7 +6,8 @@
   "scripts": {
     "demo": "./run-demo.sh",
     "start-cluster": "./run-demo.sh --cluster-only",
-    "test": "node ordering-bug-demo.js"
+    "test": "node ordering-bug-demo.js",
+    "conversation": "node conversation-ordering-bug-demo.js"
   },
   "dependencies": {
     "mqtt": "^5.3.5"

@@ -52,6 +52,37 @@ The demo connects a subscriber to each of the 4 nodes, then publishes 5 messages
 
 Every node sees its own messages first (positions 1–5), then other nodes' messages in consensus order — producing **4 different orderings** for the same 20 messages.
 
+## 🕰️ It's not just a startup bug — `conversation-ordering-bug-demo.js`
+
+The glitch is **structural**, not a warm-up race: the local fast-path runs on *every* publish, for the whole life of the cluster. It only becomes *visible* when two different nodes publish concurrently — which can happen at any point, not just at startup.
+
+This second demo proves it. It frames the cluster as a 4-way chat room (Alice, Bob, Carol, Dave — one per node) and runs a turn-by-turn conversation:
+
+- **Single-speaker turns** are well-spaced, so only one message is ever in flight → every node records the identical transcript.
+- **Two "crosstalk" turns** — deep into the chat (turns 13 and 23) — have two nodes publish at the *same instant*.
+
+```bash
+# Start the cluster, then run the conversation demo
+./run-demo.sh --cluster-only          # terminal 1
+npm run conversation                  # terminal 2 (or: node conversation-ordering-bug-demo.js)
+```
+
+The transcripts stay **byte-for-byte identical for the first 12 lines** — through startup and well into the chat — then **fork at line 13**, the first crosstalk turn:
+
+```
+  ✅ The first 12 line(s) are IDENTICAL on all 4 nodes.
+
+  🚨💀 GLORIOUS GLITCH: transcripts FORK at line 13 — mid-conversation, long after startup.
+
+     line 13  👈 FORK
+        Alice  ▸ 14│ Carol: All green on my side, rotating the new nodes IN now.
+        Bob    ▸ 13│ Bob: WAIT — hold the rotation, I'm seeing replica lag!   ← saw its OWN line first
+        Carol  ▸ 14│ Carol: All green on my side, rotating the new nodes IN now.
+        Dave   ▸ 14│ Carol: All green on my side, rotating the new nodes IN now.
+```
+
+Bob's node delivered Bob's own message early (local fast-path), while every other node saw the consensus order — so from line 13 onward, no two nodes fully agree. With the fix (PR #65), even the crosstalk lines go through consensus first and all 4 transcripts stay identical end-to-end (`✅ PASS`).
+
 ## 🔥 Impact
 
 In a real system this Glorious Glitch could cause:
